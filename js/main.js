@@ -9,18 +9,31 @@ class Game {
         this.player = new Player();
         this.attachEventListeners();
 
-        //moving obstacles
-        setInterval(() => {
-            this.obstacles.forEach( (obstacleInstance) => {
-                obstacleInstance.moveDown();
-            });
-        }, 50);
+        
 
         setInterval(() => {
             //creates new obstacle
             const newObstacle = new Obstacle();
             this.obstacles.push(newObstacle);
         }, 3000);
+
+        //moving obstacles
+        setInterval(() => {
+            this.obstacles.forEach( (obstacleInstance) => {
+                obstacleInstance.moveDown();
+
+                if (
+                    this.player.positionX < obstacleInstance.positionX + obstacleInstance.width &&
+                    this.player.positionX + this.player.width > obstacleInstance.positionX &&
+                    this.player.positionY < obstacleInstance.positionY + obstacleInstance.height &&
+                    this.player.height + this.player.positionY > obstacleInstance.positionY
+                ) {
+                    console.log("game over my friend....")
+                }
+
+            });
+        }, 50);
+
     }
     attachEventListeners(){
         document.addEventListener("keydown", (event) => {
@@ -67,16 +80,21 @@ class Player {
         this.positionX += 5;
         this.domElement.style.left = this.positionX + "vw";
 
-       let futurePositionX = this.positionX + "x";
+// if(player.moveRight()> 977){
+//     player.setX(1024);
+//  } else if}
+// }
 
-    if ( futurePositionX < rightScreenBound ) {
-        this.PositionX = futurePostionX;
-    } else {
-        this.PositionX = rightScreenBound;
-    }
-    }
+//        let futurePositionX = this.positionX + "x";
+
+//     if ( futurePositionX < rightScreenBound ) {
+//         this.PositionX = futurePostionX;
+//     } else {
+//         this.PositionX = rightScreenBound;
+//     }
+//     }
 }
-
+}
 
 class Obstacle {
     constructor(){
