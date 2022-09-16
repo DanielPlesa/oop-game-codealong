@@ -15,7 +15,7 @@ class Game {
             //creates new obstacle
             const newObstacle = new Obstacle();
             this.obstacles.push(newObstacle);
-        }, 3000);
+        }, 1000);
 
         //moving obstacles
         setInterval(() => {
@@ -31,7 +31,12 @@ class Game {
                 ) {
                     location.href = 'gameover.html';
                 }
-
+                //remove obstacles
+                if (obstacleInstance.positionY < 0){
+                    obstacleInstance.domElement.remove(); //removes from the dom
+                    this.obstacles.shift(); //remove from the array
+                    console.log(this.obstacles);
+                }
             });
         }, 50);
 
