@@ -22,13 +22,14 @@ class Game {
             this.obstacles.forEach( (obstacleInstance) => {
                 obstacleInstance.moveDown();
 
+                //detecting colision
                 if (
                     this.player.positionX < obstacleInstance.positionX + obstacleInstance.width &&
                     this.player.positionX + this.player.width > obstacleInstance.positionX &&
                     this.player.positionY < obstacleInstance.positionY + obstacleInstance.height &&
                     this.player.height + this.player.positionY > obstacleInstance.positionY
                 ) {
-                    console.log("game over my friend....")
+                    location.href = 'gameover.html';
                 }
 
             });
@@ -98,10 +99,12 @@ class Player {
 
 class Obstacle {
     constructor(){
-        this.positionX = 50;
-        this.positionY = 90;
         this.width = 10;
         this.height = 10;
+        this.positionX = (Math.floor(Math.random()* (100-this.width +1))); //generates a random number between 0 and 100-width
+
+        this.positionY = 90;
+       
         this.domElement = null;
 
         this.createDomElement();
